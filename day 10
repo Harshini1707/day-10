@@ -1,0 +1,23 @@
+public static int pickingNumbers(List<Integer> a) {
+  HashMap<Integer, Integer> map = new HashMap<>();
+	for (int x : a) {
+	  map.put(x, map.getOrDefault(x, 0) + 1);
+	}
+	
+	// contains distinct, sorted numbers
+	List<Integer> keys = map.keySet().stream().sorted().collect(Collectors.toList());
+	
+	int maxCount = Collections.max(map.values());
+	for (int i = 0, n = keys.size() - 1; i < n; i++)  {
+		int curr = keys.get(i);
+		int next = keys.get(i + 1);
+		
+		if (Math.abs(curr - next) <= 1) {
+			int count = map.get(curr) + map.get(next);
+			if (count > maxCount) {
+				maxCount = count;
+				}
+			}
+		}
+		return maxCount;
+	}
